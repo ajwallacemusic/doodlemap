@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 public class EditBreederForm {
 
+    @NotNull
     private Breeder breeder;
 
     private Iterable<Breed> currentBreeds;

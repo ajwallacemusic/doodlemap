@@ -114,6 +114,7 @@ public class BreederController {
             model.addAttribute("breeds", breedDao.findAll());
         }
 
+        //Add & Remove Breeds
         Breeder theBreeder = breederDao.findOne(editBreederForm.getBreederId());
 
         if (editBreederForm.getAddBreedId() != null) {
@@ -130,7 +131,24 @@ public class BreederController {
             }
         }
 
-        //TODO edit name, website, phone, state
+        //Edit Breeder Name
+        String breederName = editBreederForm.getBreeder().getName();
+        theBreeder.setName(breederName);
+        breederDao.save(theBreeder);
+
+        //Edit Breeder Phone
+        String breederPhone = editBreederForm.getBreeder().getPhone();
+        theBreeder.setPhone(breederPhone);
+        breederDao.save(theBreeder);
+
+        //Edit Breeder Url
+        String breederUrl = editBreederForm.getBreeder().getUrl();
+        theBreeder.setUrl(breederUrl);
+        breederDao.save(theBreeder);
+
+
+        //TODO edit state
+        //TODO validation on edits
 
         return "redirect:view/" + theBreeder.getId();
     }

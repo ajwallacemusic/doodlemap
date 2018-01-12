@@ -15,9 +15,9 @@
 </ul>
 <h4>Website</h4>
 <p th:text="${breeder.url}"></p>
-<div th:unless="${breeder.phone}">
-<h4>Phone</h4>
-    <p th:text="${breeder.phone}"></p>
+<div th:unless="${breeder.phone} == ''">
+<h4 th:unless="${breeder.phone} == ''">Phone</h4>
+<p th:text="${breeder.phone}"></p>
 </div>
 <a th:href="'/breeders/edit/' + ${breeder.id}">Edit Breeder</a>
 

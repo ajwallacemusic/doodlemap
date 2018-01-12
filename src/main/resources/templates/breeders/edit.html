@@ -13,7 +13,7 @@
 <form action="../edit" th:object="${form}" method="post">
     <div class="form-group">
         <label th:for="name">Name</label>
-        <input class="form-control" th:value="${form.breeder.name}" />
+        <input class="form-control" th:field="*{breeder.name}" th:value="${form.breeder.name}" />
         <span th:errors="*{breeder}" class="error"></span>
     </div>
     <div class="form-group">
@@ -37,11 +37,11 @@
     </div>
     <div class="form-group">
         <label th:for="url">Website</label>
-        <input class="form-control" th:field="${form.breeder.url}" />
+        <input class="form-control" th:field="*{breeder.url}" />
     </div>
     <div class="form-group">
         <label th:for="phone">Phone Number</label>
-        <input class="form-control" th:field="${form.breeder.phone}" />
+        <input class="form-control" th:field="*{breeder.phone}" />
     </div>
     <input type="hidden" name="breederId" th:value="*{breeder.id}" />
     <input type="submit" />
