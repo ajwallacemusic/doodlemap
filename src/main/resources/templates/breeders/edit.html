@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h3 th:text="'Edit ' + ${form.breeder.name}"></h3>
+
+<form action="../edit" th:object="${form}" method="post">
+    <div class="form-group">
+        <label th:for="name">Name</label>
+        <input class="form-control" th:value="${form.breeder.name}" />
+        <span th:errors="*{breeder}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label>Add a Breed</label>
+
+    <div class="form-check" th:each="breed : ${form.addableBreeds}">
+        <input type="checkbox" name="addBreedId"
+               th:value="${breed.id}" th:id="${breed.id}" />
+        <label th:for="${breed.id}" th:text="${breed.name}"></label>
+    </div>
+    </div>
+
+    <div class="form-group">
+        <label>Remove a Breed</label>
+
+        <div class="form-check" th:each="breed : ${form.currentBreeds}">
+            <input type="checkbox" name="removeBreedId"
+                   th:value="${breed.id}" th:id="${breed.id}" />
+            <label th:for="${breed.id}" th:text="${breed.name}"></label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label th:for="url">Website</label>
+        <input class="form-control" th:field="${form.breeder.url}" />
+    </div>
+    <div class="form-group">
+        <label th:for="phone">Phone Number</label>
+        <input class="form-control" th:field="${form.breeder.phone}" />
+    </div>
+    <input type="hidden" name="breederId" th:value="*{breeder.id}" />
+    <input type="submit" />
+
+</form>
+
+
+</body>
+</html>

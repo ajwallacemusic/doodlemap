@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h3>Add a Breeder</h3>
+<form method="post" style="max-width:600px;" th:object="${breeder}">
+    <div class="form-group">
+        <label th:for="name">Name</label>
+        <input class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="url">Website</label>
+        <input class="form-control" th:field="*{url}"/>
+        <span th:errors="*{url}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="phone">Phone Number</label>
+        <input class="form-control" th:field="*{phone}"/>
+        <span th:errors="*{phone}" class="error"></span>
+    </div>
+
+    <div class="form-group">
+        <label th:for="state">State</label>
+        <select name="state">
+            <option th:each="state: ${states}"
+                    th:text="${state.unabbreviated}"
+                    th:value="${state}"
+                    th:field="*{state}"></option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label th:for="currentBreeds">Breeds</label>
+        <input type="checkbox" th:each="breed : ${currentBreeds}" th:text="${breed.name}"
+               name="currentBreeds" th:value="${breed.id}" />
+    </div>
+
+    <input type="submit" value="Add Breeder!" />
+
+</form>
+
+
+</body>
+</html>

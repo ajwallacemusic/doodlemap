@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h3>Pick a State:</h3>
+<form method="post" style="max-width:600px;">
+    <select name="state">
+        <option th:each="state : ${states}"
+                th:text="${state.unabbreviated}"
+                th:value="${state}"></option>
+    </select>
+    <input type="submit" value="Go!" />
+</form>
+
+
+</body>
+</html>

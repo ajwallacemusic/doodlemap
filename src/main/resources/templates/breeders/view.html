@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h3 th:text="${breeder.name}"></h3>
+<h4>Breeds</h4>
+<ul>
+    <li th:each="breed : ${breeder.Breeds}" th:text="${breed.name}"></li>
+</ul>
+<h4>Website</h4>
+<p th:text="${breeder.url}"></p>
+<div th:unless="${breeder.phone}">
+<h4>Phone</h4>
+    <p th:text="${breeder.phone}"></p>
+</div>
+<a th:href="'/breeders/edit/' + ${breeder.id}">Edit Breeder</a>
+
+</body>
+</html>
