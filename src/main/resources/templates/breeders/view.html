@@ -11,7 +11,7 @@
 <h3 th:text="${breeder.name}"></h3>
 <h4>Breeds</h4>
 <ul>
-    <li th:each="breed : ${breeder.Breeds}" th:text="${breed.name}"></li>
+    <li th:each="breed : ${breeder.Breeds}"><a th:href="@{../../breeds/view(breed=${breed.name})}" th:text="${breed.name}"></a></li>
 </ul>
 <h4>Website</h4>
 <p th:text="${breeder.url}"></p>
