@@ -9,6 +9,10 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <h3 th:text="${breeder.name}"></h3>
+<div>
+    <h4>State</h4>
+    <p><a th:href="'/' + ${breeder.state}" th:text="${breeder.state.unabbreviated}"></a></p>
+</div>
 <h4>Breeds</h4>
 <ul>
     <li th:each="breed : ${breeder.Breeds}"><a th:href="@{../../breeds/view(breed=${breed.name})}" th:text="${breed.name}"></a></li>

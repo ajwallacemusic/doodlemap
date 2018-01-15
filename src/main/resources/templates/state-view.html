@@ -10,9 +10,10 @@
 
 <h3 th:text="${state.unabbreviated}"></h3>
 
-
-<ul>
-    <li th:each="breeder : ${breeders}"><a th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name}"></a></li>
+<p th:unless="${breeders} and ${breeders.size()}">No Breeders in this state (that we know of.)</p>
+<ul th:if="${breeders} and ${breeders.size()}">
+    <li th:each="breeder : ${breeders}">
+        <a th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name}"></a></li>
 </ul>
 
 

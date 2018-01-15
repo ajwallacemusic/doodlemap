@@ -4,10 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,7 +25,7 @@ public class Breeder {
     private String phone;
 
     @ManyToMany
-    private List<Breed> breeds = new ArrayList<>();
+    private Set<Breed> breeds;
 
     public void addBreed(Breed breed) {
         breeds.add(breed);
@@ -78,11 +75,11 @@ public class Breeder {
         this.phone = phone;
     }
 
-    public List<Breed> getBreeds() {
+    public Set<Breed> getBreeds() {
         return breeds;
     }
 
-    public void setBreeds(List<Breed> breeds) {
+    public void setBreeds(Set<Breed> breeds) {
         this.breeds = breeds;
     }
 

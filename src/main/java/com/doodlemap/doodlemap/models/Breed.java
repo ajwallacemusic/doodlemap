@@ -2,8 +2,6 @@ package com.doodlemap.doodlemap.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,14 +21,14 @@ public class Breed {
     private Set<Breeder> breeders;
 
     @ManyToMany(mappedBy = "parentBreeds")
-    private List<Breed> offspring = new ArrayList<>();
+    private Set<Breed> offspring;
 
     public void addChild(Breed child) {
         offspring.add(child);
     }
 
     @ManyToMany
-    private List<Breed> parentBreeds = new ArrayList<>();
+    private Set<Breed> parentBreeds;
 
     public void addParent(Breed parent) {
         parentBreeds.add(parent);
@@ -77,19 +75,19 @@ public class Breed {
         this.breeders = breeders;
     }
 
-    public List<Breed> getOffspring() {
+    public Set<Breed> getOffspring() {
         return offspring;
     }
 
-    public void setOffspring(List<Breed> offspring) {
+    public void setOffspring(Set<Breed> offspring) {
         this.offspring = offspring;
     }
 
-    public List<Breed> getParentBreeds() {
+    public Set<Breed> getParentBreeds() {
         return parentBreeds;
     }
 
-    public void setParentBreeds(List<Breed> parentBreeds) {
+    public void setParentBreeds(Set<Breed> parentBreeds) {
         this.parentBreeds = parentBreeds;
     }
 }

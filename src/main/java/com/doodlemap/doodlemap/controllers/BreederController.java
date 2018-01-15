@@ -64,10 +64,9 @@ public class BreederController {
             return "breeders/add";
         }
 
-
         for (int id : breeds) {
             newBreeder.addBreed(breedDao.findOne(id));
-            System.out.println(breeds);
+            breederDao.save(newBreeder);
         }
 
         breederDao.save(newBreeder);
@@ -101,13 +100,14 @@ public class BreederController {
 
         EditBreederForm editBreederForm = new EditBreederForm(theBreeder, breedersBreeds, addableBreeds);
         model.addAttribute("form", editBreederForm);
+        model.addAttribute("states", UsState.values());
 
         return "breeders/edit";
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     private String processEditForm(@ModelAttribute @Valid EditBreederForm editBreederForm, Errors errors,
-                                   Model model) {
+                                   Model model, @RequestParam(required = false) String deleteBreeder) {
 
         if (errors.hasErrors()) {
             model.addAttribute("breeder", editBreederForm.getBreeder());
@@ -146,14 +146,37 @@ public class BreederController {
         theBreeder.setUrl(breederUrl);
         breederDao.save(theBreeder);
 
+        //Edit State
+        UsState state = editBreederForm.getBreeder().getState();
+        theBreeder.setState(state);
+        breederDao.save(theBreeder);
 
-        //TODO edit state
+        //Delete Breeder
+        if (deleteBreeder != null && theBreeder.getBreeds() !=null) {
+            for (Breed breed : theBreeder.getBreeds()) {
+                theBreeder.removeBreed(breed);
+                breederDao.save(theBreeder);
+            }
+            breederDao.delete(theBreeder);
+            return "redirect:";
+
+        } else if (deleteBreeder != null) {
+            breederDao.delete(theBreeder);
+            return "redirect:";
+        }
+
+
+
+
+
         //TODO validation on edits
 
         return "redirect:view/" + theBreeder.getId();
     }
 
     /*
-    TODO remove breeder
+    TODO remove breeder (need to remove all breeds from breeder first)
      */
+
+
 }

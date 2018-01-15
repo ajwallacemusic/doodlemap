@@ -16,6 +16,16 @@
         <input class="form-control" th:field="*{breeder.name}" th:value="${form.breeder.name}" />
         <span th:errors="*{breeder}" class="error"></span>
     </div>
+    <div class="form-group"> <!-- STATES here -->
+        <select th:field="*{breeder.state}">
+            <div>
+            <option th:each="state : ${states}"
+                    th:text="${state.unabbreviated}"
+                    th:value="${state}"
+                    th:selected="${state} == ${form.breeder.state}"></option>
+            </div>
+        </select>
+    </div>
     <div class="form-group">
         <label>Add a Breed</label>
 
@@ -43,8 +53,15 @@
         <label th:for="phone">Phone Number</label>
         <input class="form-control" th:field="*{breeder.phone}" />
     </div>
+    <div class="form-group">
+        <label>Delete Breeder</label>
+        <div class="form-check">
+            <input type="checkbox" name="deleteBreeder" id="deleteBreeder"/>
+            <label for="deleteBreeder">Check to Delete Breeder</label>
+        </div>
+    </div>
     <input type="hidden" name="breederId" th:value="*{breeder.id}" />
-    <input type="submit" />
+    <input type="submit" value="Submit Changes"/>
 
 </form>
 
