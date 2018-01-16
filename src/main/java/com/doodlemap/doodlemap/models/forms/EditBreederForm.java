@@ -2,25 +2,29 @@ package com.doodlemap.doodlemap.models.forms;
 
 import com.doodlemap.doodlemap.models.Breed;
 import com.doodlemap.doodlemap.models.Breeder;
+import com.doodlemap.doodlemap.models.validators.ValidBreederObject;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 public class EditBreederForm {
 
-    @NotNull
+    @Valid
     private Breeder breeder;
 
     private Iterable<Breed> currentBreeds;
 
     private Iterable<Breed> addableBreeds;
 
-    @NotNull
     private int breederId;
 
-    @NotNull
     private int[] addBreedId;
 
-    @NotNull
     private int[] removeBreedId;
 
     public EditBreederForm(Breeder breeder, Iterable<Breed> currentBreeds, Iterable<Breed> addableBreeds) {
@@ -78,4 +82,5 @@ public class EditBreederForm {
     public void setRemoveBreedId(int[] removeBreedId) {
         this.removeBreedId = removeBreedId;
     }
+
 }

@@ -6,6 +6,7 @@ import com.doodlemap.doodlemap.models.Breed;
 import com.doodlemap.doodlemap.models.Breeder;
 import com.doodlemap.doodlemap.models.UsState;
 import com.doodlemap.doodlemap.models.forms.EditBreederForm;
+import com.doodlemap.doodlemap.models.validators.ValidBreederObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import static org.codehaus.groovy.runtime.DefaultGroovyMethods.size;
 
@@ -87,6 +89,7 @@ public class BreederController {
     private String displayEditForm(@PathVariable int id, Model model) {
 
         Breeder theBreeder = breederDao.findOne(id);
+
         ArrayList<Breed> breedersBreeds = new ArrayList<>(theBreeder.getBreeds());
         Iterable<Breed> allTheBreeds = breedDao.findAll();
         ArrayList<Breed> addableBreeds = new ArrayList<>();
@@ -98,56 +101,78 @@ public class BreederController {
             }
         }
 
-        EditBreederForm editBreederForm = new EditBreederForm(theBreeder, breedersBreeds, addableBreeds);
-        model.addAttribute("form", editBreederForm);
+        //EditBreederForm editBreederForm = new EditBreederForm(theBreeder, breedersBreeds, addableBreeds);
+        model.addAttribute("breeder", theBreeder);
+        model.addAttribute("addableBreeds", addableBreeds);
+        model.addAttribute("currentBreeds", breedersBreeds);
         model.addAttribute("states", UsState.values());
 
         return "breeders/edit";
     }
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    private String processEditForm(@ModelAttribute @Valid EditBreederForm editBreederForm, Errors errors,
+    private String processEditForm(@ModelAttribute @Valid Breeder breeder, Errors errors,
                                    Model model, @RequestParam(required = false) String deleteBreeder) {
 
+        Breeder theBreeder = breederDao.findOne(breeder.getId());
+
+
         if (errors.hasErrors()) {
-            model.addAttribute("breeder", editBreederForm.getBreeder());
-            model.addAttribute("breeds", breedDao.findAll());
+            System.out.println(errors);
+
+            ArrayList<Breed> breedersBreeds = new ArrayList<>(theBreeder.getBreeds());
+            Iterable<Breed> allTheBreeds = breedDao.findAll();
+            ArrayList<Breed> addableBreeds = new ArrayList<>();
+
+
+            for (Breed breed : allTheBreeds) {
+                if (!breedersBreeds.contains(breed)) {
+                    addableBreeds.add(breed);
+                }
+            }
+
+            model.addAttribute("breeder", breeder);
+            model.addAttribute("addableBreeds", addableBreeds);
+            model.addAttribute("currentBreeds", breedersBreeds);
+            model.addAttribute("states", UsState.values());
+            model.addAttribute("theBreederId", breeder.getId());
+
+            return "breeders/edit";
         }
 
         //Add & Remove Breeds
-        Breeder theBreeder = breederDao.findOne(editBreederForm.getBreederId());
 
-        if (editBreederForm.getAddBreedId() != null) {
-            for (int id : editBreederForm.getAddBreedId()) {
-                theBreeder.addBreed(breedDao.findOne(id));
+        if (breeder.getAddBreedId() != null) {
+            for (int breedId : breeder.getAddBreedId()) {
+                theBreeder.addBreed(breedDao.findOne(breedId));
                 breederDao.save(theBreeder);
             }
         }
 
-        if (editBreederForm.getRemoveBreedId() != null) {
-            for (int id : editBreederForm.getRemoveBreedId()) {
-                theBreeder.removeBreed(breedDao.findOne(id));
+        if (breeder.getRemoveBreedId() != null) {
+            for (int breedId : breeder.getRemoveBreedId()) {
+                theBreeder.removeBreed(breedDao.findOne(breedId));
                 breederDao.save(theBreeder);
             }
         }
 
         //Edit Breeder Name
-        String breederName = editBreederForm.getBreeder().getName();
+        String breederName = breeder.getName();
         theBreeder.setName(breederName);
         breederDao.save(theBreeder);
 
         //Edit Breeder Phone
-        String breederPhone = editBreederForm.getBreeder().getPhone();
+        String breederPhone = breeder.getPhone();
         theBreeder.setPhone(breederPhone);
         breederDao.save(theBreeder);
 
         //Edit Breeder Url
-        String breederUrl = editBreederForm.getBreeder().getUrl();
+        String breederUrl = breeder.getUrl();
         theBreeder.setUrl(breederUrl);
         breederDao.save(theBreeder);
 
         //Edit State
-        UsState state = editBreederForm.getBreeder().getState();
+        UsState state = breeder.getState();
         theBreeder.setState(state);
         breederDao.save(theBreeder);
 
@@ -165,18 +190,10 @@ public class BreederController {
             return "redirect:";
         }
 
+        //TODO validation after first validation submit sends to breederId of 0 -- needs to be the actual id
 
-
-
-
-        //TODO validation on edits
-
-        return "redirect:view/" + theBreeder.getId();
+        return "redirect:/breeders/view/" + theBreeder.getId();
     }
-
-    /*
-    TODO remove breeder (need to remove all breeds from breeder first)
-     */
 
 
 }

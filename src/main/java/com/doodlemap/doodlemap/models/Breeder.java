@@ -1,5 +1,7 @@
 package com.doodlemap.doodlemap.models;
 
+import com.doodlemap.doodlemap.models.validators.ValidBreederObject;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -19,10 +21,16 @@ public class Breeder {
     @Size(min=1, max=100, message = "Name must not be empty.")
     private String name;
 
-    //@NotNull(message = "Yikes! We really like our breeders to have a website.")
+    @Size(min=1, max=100, message = "Yikes! We really like our breeders to have a website.")
     private String url;
 
     private String phone;
+
+    private int[] addBreedId;
+
+    private int[] removeBreedId;
+
+    private int breederFormId;
 
     @ManyToMany
     private Set<Breed> breeds;
@@ -93,5 +101,31 @@ public class Breeder {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) { this.id = id; }
+
+    public int[] getAddBreedId() {
+        return addBreedId;
+    }
+
+    public void setAddBreedId(int[] addBreedId) {
+        this.addBreedId = addBreedId;
+    }
+
+    public int[] getRemoveBreedId() {
+        return removeBreedId;
+    }
+
+    public void setRemoveBreedId(int[] removeBreedId) {
+        this.removeBreedId = removeBreedId;
+    }
+
+    public int getBreederFormId() {
+        return id;
+    }
+
+    public void setBreederFormId(int breederFormId) {
+        this.breederFormId = breederFormId;
     }
 }
