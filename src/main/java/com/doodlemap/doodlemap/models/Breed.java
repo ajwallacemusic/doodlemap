@@ -2,6 +2,7 @@ package com.doodlemap.doodlemap.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -11,10 +12,10 @@ public class Breed {
     @GeneratedValue
     private int id;
 
-    @NotNull
+    @Size(min=1, max=100)
     private String name;
 
-    @NotNull
+    @Size(min=1, max=1000)
     private String description;
 
     @ManyToMany(mappedBy = "breeds")
@@ -65,6 +66,10 @@ public class Breed {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Set<Breeder> getBreeders() {

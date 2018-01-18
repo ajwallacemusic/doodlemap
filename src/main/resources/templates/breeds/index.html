@@ -12,7 +12,7 @@
 <p th:unless="${breeds} and ${breeds.size()}">no Breeds :(</p>
 <p><a href="/breeds/add">Add a Breed</a></p>
 <ul>
-    <li th:each="breed : ${breeds}" ><a th:href="@{breeds/view(breed=${breed.name})}" th:text="${breed.name}"></a></li>
+    <li th:each="breed : ${breeds}" ><a th:href="@{/breeds/view(breed=${breed.name})}" th:text="${breed.name}"></a></li>
 </ul>
 
 

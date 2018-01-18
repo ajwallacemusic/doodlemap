@@ -190,7 +190,6 @@ public class BreederController {
             return "redirect:";
         }
 
-        //TODO validation after first validation submit sends to breederId of 0 -- needs to be the actual id
 
         return "redirect:/breeders/view/" + theBreeder.getId();
     }

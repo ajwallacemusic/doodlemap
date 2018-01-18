@@ -4,6 +4,7 @@ import com.doodlemap.doodlemap.data.BreedDao;
 import com.doodlemap.doodlemap.data.BreederDao;
 import com.doodlemap.doodlemap.models.Breed;
 import com.doodlemap.doodlemap.models.Breeder;
+import org.hibernate.validator.constraints.ModCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,8 +100,63 @@ public class BreedController {
         return "breeds/view";
     }
 
-    //TODO remove breed
-    //TODO edit breed
-    //TODO breed parents
+    @RequestMapping(value = "edit", method = RequestMethod.GET)
+    private String editBreed(@RequestParam("breed") String breed, Model model) {
+
+        Breed editBreed = null;
+
+        for (Breed theBreed : breedDao.findAll()) {
+            if (theBreed.getName().contains(breed)) {
+                editBreed = theBreed;
+            }
+        }
+
+        model.addAttribute("title", "Edit " + editBreed.getName());
+        model.addAttribute("breed", editBreed);
+
+        return "breeds/edit";
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    private String editBreed(@ModelAttribute @Valid Breed breed, Errors errors, Model model, @RequestParam(required = false) String deleteBreed) {
+
+        Breed theBreed = breedDao.findOne(breed.getId());
+
+        if (errors.hasErrors()) {
+            model.addAttribute("breed", breed);
+
+            return "breeds/edit";
+        }
+
+
+        String breedName = breed.getName();
+        theBreed.setName(breedName);
+        breedDao.save(theBreed);
+
+        String breedDesc = breed.getDescription();
+        theBreed.setDescription(breedDesc);
+        breedDao.save(theBreed);
+
+        //Delete Breeder
+        if (deleteBreed != null && theBreed.getBreeders() !=null) {
+            for (Breeder breeder : theBreed.getBreeders()) {
+                Breeder theBreeder = breederDao.findOne(breeder.getId());
+                theBreeder.removeBreed(theBreed);
+                breederDao.save(theBreeder);
+            }
+            breedDao.delete(theBreed);
+            return "redirect:";
+
+        } else if (deleteBreed != null) {
+            breedDao.delete(theBreed);
+            return "redirect:";
+        }
+
+
+        return "redirect:view?breed=" + theBreed.getName();
+    }
+
+
+    //TODO parent breeds
 
 }
