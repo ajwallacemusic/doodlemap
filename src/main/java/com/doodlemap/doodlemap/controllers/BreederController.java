@@ -60,7 +60,9 @@ public class BreederController {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add a Breeder");
             model.addAttribute("breeder", newBreeder);
-            model.addAttribute("breeds", breedDao.findAll());
+            if (breedDao.findAll() != null) {
+                model.addAttribute("breeds", breedDao.findAll());
+            }
             model.addAttribute("states", UsState.values());
 
             return "breeders/add";
