@@ -60,15 +60,20 @@ public class BreederController {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add a Breeder");
             model.addAttribute("breeder", newBreeder);
+            if (breedDao.findAll() != null) {
+                model.addAttribute("breeds", breedDao.findAll());
+            }
             model.addAttribute("breeds", breedDao.findAll());
             model.addAttribute("states", UsState.values());
 
             return "breeders/add";
         }
-
-        for (int id : breeds) {
-            newBreeder.addBreed(breedDao.findOne(id));
-            breederDao.save(newBreeder);
+        //need if statement for breeds
+        if (breeds != null) {
+            for (int id : breeds) {
+                newBreeder.addBreed(breedDao.findOne(id));
+                breederDao.save(newBreeder);
+            }
         }
 
         breederDao.save(newBreeder);
