@@ -63,7 +63,6 @@ public class BreederController {
             if (breedDao.findAll() != null) {
                 model.addAttribute("breeds", breedDao.findAll());
             }
-            model.addAttribute("breeds", breedDao.findAll());
             model.addAttribute("states", UsState.values());
 
             return "breeders/add";
