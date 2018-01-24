@@ -66,6 +66,8 @@ public class BreedController {
             return "breeds/add";
         }
 
+/*      logic for future parentBreed feature
+
         if (parentBreedOne > 0 && parentBreedTwo > 0) {
             Breed parentOne = breedDao.findOne(parentBreedOne);
             Breed parentTwo = breedDao.findOne(parentBreedTwo);
@@ -78,7 +80,7 @@ public class BreedController {
 
 
         }
-
+*/
         breedDao.save(newBreed);
 
         return "redirect:view?breed=" + newBreed.getName();
