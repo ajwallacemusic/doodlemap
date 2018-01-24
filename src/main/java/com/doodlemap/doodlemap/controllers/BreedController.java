@@ -47,14 +47,15 @@ public class BreedController {
 
         return "breeds/add";
     }
-
+/*  Request Params for future features of add function
+    @RequestParam(required = false) int parentBreedOne,
+    @RequestParam(required = false) int parentBreedTwo,
+    @RequestParam(required = false) List<Breeder> breeders,
+    */
     //processes the form to add a new breed and then displays the new breed's page
     @RequestMapping(value = "add", method = RequestMethod.POST)
     private String processAddBreedForm(@ModelAttribute @Valid Breed newBreed,
-                                       Errors errors, @RequestParam(required = false) int parentBreedOne,
-                                       @RequestParam(required = false) int parentBreedTwo,
-                                       @RequestParam(required = false) List<Breeder> breeders,
-                                       Model model) {
+                                       Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add a Breed");
@@ -64,6 +65,8 @@ public class BreedController {
 
             return "breeds/add";
         }
+
+        /* logic for parentBreed feature to come later
 
         if (parentBreedOne > 0 && parentBreedTwo > 0) {
             Breed parentOne = breedDao.findOne(parentBreedOne);
@@ -77,6 +80,7 @@ public class BreedController {
 
 
         }
+        */
 
         breedDao.save(newBreed);
 
