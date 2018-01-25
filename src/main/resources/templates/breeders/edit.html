@@ -29,7 +29,7 @@
     <div class="form-group">
         <label>Add a Breed</label>
 
-    <div class="form-check" th:each="breed : ${addableBreeds}">
+    <div th:if="${addableBreeds.size()}" class="form-check" th:each="breed : ${addableBreeds}">
         <input type="checkbox" name="addBreedId"
                th:value="${breed.id}" th:id="${breed.id}" />
         <label th:for="${breed.id}" th:text="${breed.name}"></label>
@@ -39,7 +39,7 @@
     <div class="form-group">
         <label>Remove a Breed</label>
 
-        <div class="form-check" th:each="breed : ${currentBreeds}">
+        <div th:if="${currentBreeds.size()}" class="form-check" th:each="breed : ${currentBreeds}">
             <input type="checkbox" name="removeBreedId"
                    th:value="${breed.id}" th:id="${breed.id}" />
             <label th:for="${breed.id}" th:text="${breed.name}"></label>

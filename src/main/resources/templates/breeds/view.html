@@ -10,12 +10,14 @@
 
 <h3 th:text="${breed.name}"></h3>
 <p th:text="${breed.description}"></p>
+<div th:if="${breed.breeders.size()}">
 <h4 th:text="'Breeders Who Breed ' + ${breed.name} + 's'"></h4>
 <ul>
     <li th:each="breeder : ${breed.breeders}">
         <a th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name}"></a>
     </li>
 </ul>
+</div>
 <p><a th:href="@{edit(breed=${breed.name})}" th:text="'Edit ' + ${breed.name}">Edit Breed</a>
 </p>
 
