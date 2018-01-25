@@ -39,7 +39,7 @@
     </div>
 
     <div th:if="${breeds.size()}" class="form-group">
-        <label th:unless="${breeds} != null" th:for="breeds">Breeds</label>
+        <label th:for="breeds">Breeds</label>
         <input type="checkbox" th:each="breed : ${breeds}" th:text="${breed.name}"
                name="breeds" th:value="${breed.id}" />
     </div>
