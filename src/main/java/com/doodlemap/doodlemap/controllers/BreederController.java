@@ -70,9 +70,11 @@ public class BreederController {
             return "breeders/add";
         }
 
-        for (int id : breeds) {
-            newBreeder.addBreed(breedDao.findOne(id));
-            breederDao.save(newBreeder);
+        if (breeds != null) {
+            for (int id : breeds) {
+                newBreeder.addBreed(breedDao.findOne(id));
+                breederDao.save(newBreeder);
+            }
         }
 
         breederDao.save(newBreeder);
