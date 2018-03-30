@@ -1,7 +1,6 @@
 .DS_Store
 
 .gradle
-/build/
 !gradle/wrapper/gradle-wrapper.jar
 build.gradle
 gradle/wrappergradlew
@@ -31,3 +30,6 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### Random ###
+database/

@@ -47,7 +47,9 @@ public class BreederController {
 
         model.addAttribute("title", "Add a Breeder");
         model.addAttribute(new Breeder());
-        model.addAttribute("breeds", breedDao.findAll());
+        if (breedDao.findAll() != null) {
+            model.addAttribute("breeds", breedDao.findAll());
+        }
         model.addAttribute("states", UsState.values());
 
         return "breeders/add";
@@ -67,7 +69,8 @@ public class BreederController {
 
             return "breeders/add";
         }
-        //need if statement for breeds
+
+        //if statement for breeds
         if (breeds != null) {
             for (int id : breeds) {
                 newBreeder.addBreed(breedDao.findOne(id));
