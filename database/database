@@ -1,0 +1,17 @@
+Username: doodlemap
+       Password: doodlemap
+  Database Name: doodlemap
+ Connection URL: mysql://mysql:3306/
+Root password: vJFJ5YGqPoJWb86A
+
+oc env dc mysql -e MYSQL_USER=user8U7  -e MYSQL_PASSWORD=5Njgw5hR6oeURG3H -e MYSQL_DATABASE=doodle-data 
+
+oc env dc mysql -e MYSQL_ROOT_PASSWORD=
+
+oc set env dc/mysql MYSQL_USER=user8U7 MYSQL_PASSWORD=5Njgw5hR6oeURG3H MYSQL_DATABASE=doodle-data
+
+
+oc env dc doodle-2 -e MYSQL_USER=user8U7 -e MYSQL_PASSWORD=5Njgw5hR6oeURG3H -e MYSQL_DATABASE=doodle-data
+
+
+
