@@ -33,7 +33,7 @@ public class EditBreederForm {
         this.addableBreeds = addableBreeds;
     }
 
-    public EditBreederForm() {};
+    public EditBreederForm() {}
 
     public Breeder getBreeder() {
         return breeder;

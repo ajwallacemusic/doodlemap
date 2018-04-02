@@ -2,19 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
-
-<h1 th:text="${title}"></h1>
+<body class="container-fluid px-0">
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h3>Breeders</h3>
-<p th:unless="${breeders} and ${breeders.size()}">no breeders :(</p>
-<p><a href="/breeders/add">Add a Breeder</a></p>
-<ul>
-    <li th:each="breeder : ${breeders}"><a th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name}"></a></li>
-</ul>
+<div class="container-fluid">
 
-
+    <h3 class="text-center">Breeders</h3>
+    <div class="row justify-content-center">
+        <a class="btn btn-primary mb-2" href="/breeders/add">Add a Breeder</a>
+    </div>
+    <div class="row">
+        <div class="col-10 col-md-8 offset-md-2 offset-1">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" th:if="${breeders} and ${breeders.size()}">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Breeder</th>
+                        <th>Breeds</th>
+                        <th>Website</th>
+                        <th>Phone</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="breeder : ${breeders}">
+                        <td><a th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name}"></a></td>
+                        <td>
+                            <p th:unless="${breeder.breeds.size()}">No breeds</p>
+                            <div>
+                                <p>
+                                    <a th:each="breed,itrStat : ${breeder.breeds}" th:unless="${itrStat.index} == ${breeder.breeds.size()} - 1"
+                                       th:href="@{/breeds/view(breed=${breed.name})}" th:text="${breed.name} + ', '"></a>
+                                    <a th:each="breed,itrStat : ${breeder.breeds}" th:if="${itrStat.index} == ${breeder.breeds.size()} - 1"
+                                       th:href="@{/breeds/view(breed=${breed.name})}" th:text="${breed.name}"></a>
+                                </p>
+                            </div>
+                        </td>
+                        <td th:text="${breeder.url}"></td>
+                        <td>
+                            <p th:if="${breeder.phone} == ''">na</p>
+                            <p th:unless="${breeder.phone} == ''" th:text="${breeder.phone}"></p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p th:unless="${breeders} and ${breeders.size()}">No Breeders yet :(</p>
+    </div>
+</div>
 </body>
+<footer th:replace="fragments :: footer"></footer>
 </html>

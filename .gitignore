@@ -33,3 +33,6 @@ nbdist/
 
 ### Random ###
 database/
+
+##Config Files##
+config/application.properties

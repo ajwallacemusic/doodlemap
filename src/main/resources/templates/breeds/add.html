@@ -2,58 +2,60 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
-
-<h1 th:text="${title}"></h1>
+<body class="container-fluid px-0">
 
 <nav th:replace="fragments :: navigation"></nav>
+<div class="container-fluid">
+    <h3 class="text-center">Add a Breed</h3>
+    <div class="row">
+        <div class="col-8 offset-2 col-sm-6 offset-sm-3">
+            <form method="post" style="max-width:600px;" th:object="${breed}">
+                <div class="form-group">
+                    <label th:for="name">Name</label>
+                    <input class="form-control" th:field="*{name}"/>
+                    <span th:errors="*{name}" class="error"></span>
+                </div>
 
-<h3>Add a Breed</h3>
-<form method="post" style="max-width:600px;" th:object="${breed}">
-    <div class="form-group">
-        <label th:for="name">Name</label>
-        <input class="form-control" th:field="*{name}" />
-        <span th:errors="*{name}" class="error"></span>
+                <div class="form-group">
+                    <label th:for="description">Description</label>
+                    <input class="form-control" th:field="*{description}"/>
+                    <span th:errors="*{description}" class="error"></span>
+                </div>
+
+                <!--
+                // Parent Breeds
+                <div class="form-group">
+                    <label th:for="parentBreedOne">Parent Breed One</label>
+                    <select name="parentBreedOne">
+                        <option value="-1">Select a Parent Breed</option>
+                        <option th:each="breed: ${parentBreeds}"
+                                th:text="${breed.name}"
+                                th:value="${breed.id}"></option>
+                    </select>
+                    <label th:for="parentBreedTwo">Parent Breed Two</label>
+                    <select name="parentBreedTwo">
+                        <option value="-1" >Select a Parent Breed</option>
+                        <option th:each="breed: ${parentBreeds}"
+                                th:text="${breed.name}"
+                                th:value="${breed.id}"></option>
+                    </select>
+                </div>
+
+            // Maybe add the option to select breeders when adding a new breed
+
+                <div class="form-group">
+                    <label th:for="breeders">Breeders (Optional)</label>
+                    <input type="checkbox" name="breeders" th:each="breeder : ${breeders}"
+                           th:text="${breeder.name}"
+                           th:value="${breeder}" />
+                </div>
+                -->
+                <input class="btn btn-primary" type="submit" value="Add Breed!"/>
+
+            </form>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label th:for="description">Description</label>
-        <input class="form-control" th:field="*{description}"/>
-        <span th:errors="*{description}" class="error"></span>
-    </div>
-
-    <!--
-    // Parent Breeds
-    <div class="form-group">
-        <label th:for="parentBreedOne">Parent Breed One</label>
-        <select name="parentBreedOne">
-            <option value="-1">Select a Parent Breed</option>
-            <option th:each="breed: ${parentBreeds}"
-                    th:text="${breed.name}"
-                    th:value="${breed.id}"></option>
-        </select>
-        <label th:for="parentBreedTwo">Parent Breed Two</label>
-        <select name="parentBreedTwo">
-            <option value="-1" >Select a Parent Breed</option>
-            <option th:each="breed: ${parentBreeds}"
-                    th:text="${breed.name}"
-                    th:value="${breed.id}"></option>
-        </select>
-    </div>
-
-// Maybe add the option to select breeders when adding a new breed
-
-    <div class="form-group">
-        <label th:for="breeders">Breeders (Optional)</label>
-        <input type="checkbox" name="breeders" th:each="breeder : ${breeders}"
-               th:text="${breeder.name}"
-               th:value="${breeder}" />
-    </div>
-    -->
-    <input type="submit" value="Add Breed!" />
-
-</form>
-
-
+</div>
 </body>
+<footer th:replace="fragments :: footer"></footer>
 </html>

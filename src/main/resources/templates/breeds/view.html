@@ -2,25 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
-
-<h1 th:text="${title}"></h1>
+<body class="container-fluid px-0">
 
 <nav th:replace="fragments :: navigation"></nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <h3 class="card-header" th:text="${breed.name}"></h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <h4>Description</h4>
+                        <p class="card-text" th:text="${breed.description}"></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>Breeders</h4>
+                        <p class="card-text" th:unless="${breed.breeders.size()}">This breed doesn't have any breeders yet.</p>
+                        <p class="card-text" th:unless="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="'/breeders/view/' + ${breeder.id}"
+                                                                                                                              th:text="${breeder.name} + ', '"></a></p>
+                        <p class="card-text" th:if="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="'/breeders/view/' + ${breeder.id}"
+                                                                                                                          th:text="${breeder.name}"></a></p>
+                    </li>
+                    <li class="list-group-item">
+                        <h4>States</h4>
+                        <p class="card-text" th:unless="${breed.breeders.size()}">This breed doesn't have any breeders yet.</p>
+                        <p class="card-text" th:unless="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="@{/${breeder.state}}"
+                                                                                                                                th:text="${breeder.state.unabbreviated} + ', '"></a></p>
+                        <p class="card-text" th:if="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="@{/${breeder.state}}"
+                                                                                                                            th:text="${breeder.state.unabbreviated}"></a></p>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a class="btn btn-primary" th:href="@{edit(breed=${breed.name})}" th:text="'Edit ' + ${breed.name}">Edit Breed</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h3 th:text="${breed.name}"></h3>
-<p th:text="${breed.description}"></p>
-<div th:if="${breed.breeders.size()}">
-<h4 th:text="'Breeders Who Breed ' + ${breed.name} + 's'"></h4>
-<ul>
-    <li th:each="breeder : ${breed.breeders}">
-        <a th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name}"></a>
-    </li>
-</ul>
 </div>
-<p><a th:href="@{edit(breed=${breed.name})}" th:text="'Edit ' + ${breed.name}">Edit Breed</a>
-</p>
-
-
 </body>
+<footer th:replace="fragments :: footer"></footer>
 </html>
