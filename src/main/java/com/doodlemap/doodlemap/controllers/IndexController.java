@@ -36,13 +36,13 @@ public class IndexController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    private String index(Model model, @RequestParam UsState state) {
+    private String index(Model model, @RequestParam String state) {
 
         return "redirect:/" + state;
     }
 
     @RequestMapping(value = "/{state}")
-    private String viewState(@PathVariable UsState state, Model model) {
+    private String viewState(@PathVariable String state, Model model) {
 
         //breederDao.findAll() is the problem (null pointer exception because of ?? maybe phone field? or is breeerDao not getting a value?)
 
@@ -51,15 +51,17 @@ public class IndexController {
 
         //loop over all breeders and check for breeders with the state in the path variable
         //Then add those breeders to a list which is passed to the model
-
+        
+        UsState theState = UsState.parse(state);
+        
         for (Breeder breeder : breederDao.findAll()) {
-            if (breeder.getState() == state) {
+            if (breeder.getState() == theState) {
                 breedersByState.add(breeder);
             }
         }
 
 
-        model.addAttribute("state", state);
+        model.addAttribute("state", theState);
         model.addAttribute("breeders", breedersByState);
 
         return "state-view";

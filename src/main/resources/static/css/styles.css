@@ -1,3 +1,47 @@
+body {
+  background: #D3C8DE;
+
+}
+
+h1 {
+  font-family: 'Bevan', sans-serif;
+  font-weight: 300;
+  font-size: 2.5em;
+}
+
+#us-map {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  max-width: 720px;
+}
+
+path, circle {
+  fill: #5E7BFF !important
+}
+
+path:hover, circle:hover {
+  stroke: #002868 !important;
+  stroke-width:2px;
+  stroke-linejoin: round;
+  fill: #4BEDC7 !important;
+  cursor: pointer;
+}
+
+#info-box {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+  background-color: #eeec;
+  padding: 8px;
+  font-family: 'Source Sans Pro' sans-serif;
+  font-weight: 200;
+}
+
 .error {
     color: red;
 }
