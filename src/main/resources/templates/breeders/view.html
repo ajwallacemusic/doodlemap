@@ -13,13 +13,19 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <h4>State</h4>
-                            <p class="card-text"><a th:href="'/' + ${breeder.state}" th:text="${breeder.state.unabbreviated}"></a></p>
+                            <p class="card-text"><a th:href="'/' + ${breeder.state.unabbreviated}" th:text="${breeder.state.unabbreviated}"></a></p>
                         </li>
                         <li class="list-group-item">
                             <h4>Breeds</h4>
                             <p class="card-text" th:unless="${breeder.Breeds.size()}">This breeder doesn't have any breeds yet.</p>
-                            <p class="card-text" th:if="${breeder.Breeds.size()}" th:each="breed : ${breeder.Breeds}"><a th:href="@{../../breeds/view(breed=${breed.name})}"
-                                                                                                                                  th:text="${breed.name}"></a></p>
+                            <div>
+                                <p>
+                                    <a th:each="breed,itrStat : ${breeder.Breeds}" th:unless="${itrStat.index} == ${breeder.Breeds.size()} - 1"
+                                       th:href="@{../../breeds/view(breed=${breed.name})}" th:text="${breed.name} + ', '"></a>
+                                    <a th:each="breed,itrStat : ${breeder.Breeds}" th:if="${itrStat.index} == ${breeder.Breeds.size()} - 1"
+                                       th:href="@{../../breeds/view(breed=${breed.name})}" th:text="${breed.name}"></a>
+                                </p>
+                            </div>
                         </li>
                         <li class="list-group-item">
                             <h4>Website</h4>

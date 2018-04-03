@@ -18,18 +18,26 @@
                     <li class="list-group-item">
                         <h4>Breeders</h4>
                         <p class="card-text" th:unless="${breed.breeders.size()}">This breed doesn't have any breeders yet.</p>
-                        <p class="card-text" th:unless="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="'/breeders/view/' + ${breeder.id}"
-                                                                                                                              th:text="${breeder.name} + ', '"></a></p>
-                        <p class="card-text" th:if="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="'/breeders/view/' + ${breeder.id}"
-                                                                                                                          th:text="${breeder.name}"></a></p>
+                        <div>
+                            <p>
+                                <a th:each="breeder,itrStat : ${breed.breeders}" th:unless="${itrStat.index} == ${breed.breeders.size()} - 1"
+                                   th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name} + ', '"></a>
+                                <a th:each="breeder,itrStat : ${breed.breeders}" th:if="${itrStat.index} == ${breed.breeders.size()} - 1"
+                                   th:href="'/breeders/view/' + ${breeder.id}" th:text="${breeder.name}"></a>
+                            </p>
+                        </div>
                     </li>
                     <li class="list-group-item">
                         <h4>States</h4>
                         <p class="card-text" th:unless="${breed.breeders.size()}">This breed doesn't have any breeders yet.</p>
-                        <p class="card-text" th:unless="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="@{/${breeder.state}}"
-                                                                                                                                th:text="${breeder.state.unabbreviated} + ', '"></a></p>
-                        <p class="card-text" th:if="${breed.breeders.size()} == 1" th:each="breeder : ${breed.breeders}"><a th:href="@{/${breeder.state}}"
-                                                                                                                            th:text="${breeder.state.unabbreviated}"></a></p>
+                        <div>
+                            <p>
+                                <a th:each="breeder,itrStat : ${breed.breeders}" th:unless="${itrStat.index} == ${breed.breeders.size()} - 1"
+                                   th:href="'/' + ${breeder.state.unabbreviated}" th:text="${breeder.state.unabbreviated} + ', '"></a>
+                                <a th:each="breeder,itrStat : ${breed.breeders}" th:if="${itrStat.index} == ${breed.breeders.size()} - 1"
+                                   th:href="'/' + ${breeder.state.unabbreviated}" th:text="${breeder.state.unabbreviated}"></a>
+                            </p>
+                        </div>
                     </li>
                 </ul>
                 <div class="card-body">
