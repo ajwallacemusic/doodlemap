@@ -1,7 +1,7 @@
 # doodlemap
 Doodle Dog Breeder Web App
 
-\* Please checkout the live demo <a href="http://doodle-2-doodle-2.1d35.starter-us-east-1.openshiftapps.com/" target="_blank">here </a>\*
+\* Live Demo is currently down due to changes to subscriptions at OpenShift. Currently working on a new deployment solution <a href="http://doodle-2-doodle-2.1d35.starter-us-east-1.openshiftapps.com/" target="_blank">here </a>\*
 
 
 This app is under construction and changing almost daily. I've got the bare bones up to share with others and get feedback. Features yet to come include:
